@@ -18,7 +18,7 @@ const Topnav = () => {
     <header className="top-navbar">
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px', color: 'var(--text-muted)' }}>
         <FiSearch />
-        <span style={{ fontSize: '0.9rem' }}>Search leads...</span>
+        <span className="mobile-hidden" style={{ fontSize: '0.9rem' }}>Search leads...</span>
       </div>
 
       <div className="auth-buttons">

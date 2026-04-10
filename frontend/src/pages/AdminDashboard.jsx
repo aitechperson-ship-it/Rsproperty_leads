@@ -150,7 +150,7 @@ const AdminDashboard = () => {
                   <div className="stat-value" style={{ color: '#2563eb' }}>{stats.siteVisits}</div>
                 </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="responsive-grid-cols-2">
                 <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', width: '100%' }}>
                   <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Total Pipeline Health</h3>
                   <Bar data={chartData} options={{ responsive: true, plugins: { legend: { position: 'bottom' } } }} />
@@ -202,7 +202,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '20px', marginBottom: '30px' }}>
+              <div className="responsive-grid-sidebar">
                 <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)' }}>
                   <h3 style={{ marginBottom: '20px' }}>Recent Leads</h3>
                   <LeadTable leads={leads.slice(0, 5)} role="Admin" onLeadUpdated={fetchLeadsAndStats} />
