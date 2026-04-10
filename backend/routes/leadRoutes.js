@@ -11,6 +11,7 @@ router.route('/')
 router.get('/export', protect, exportLeads);
 router.get('/stats', protect, adminOnly, getStats);
 router.get('/team-stats', protect, adminOnly, getTeamStats);
+router.get('/analytics', protect, adminOnly, require('../controllers/leadController').getAdvancedAnalytics);
 
 router.route('/:id')
   .put(protect, updateLead)

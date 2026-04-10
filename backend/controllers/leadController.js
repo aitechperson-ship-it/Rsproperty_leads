@@ -12,6 +12,10 @@ exports.getLeads = async (req, res) => {
     if (req.user.role === 'Team Member') {
       query.assigned_to = req.user.id;
     }
+    if (req.query.days) {
+      const d = new Date(); d.setDate(d.getDate() - parseInt(req.query.days));
+      query.createdAt = { $gte: d };
+    }
     const leads = await Lead.find(query).populate('assigned_to', 'name email').populate('notes.addedBy', 'name');
     res.json(leads);
   } catch (error) {
@@ -189,10 +193,16 @@ exports.getStats = async (req, res) => {
   try {
     if (req.user.role !== 'Admin') return res.status(403).json({ message: 'Only admin can view stats' });
     
-    const totalLeads = await Lead.countDocuments();
-    const converted = await Lead.countDocuments({ status: 'Closed / Converted' });
-    const standardPending = await Lead.countDocuments({ status: { $in: ['New', 'Contacted', 'Negotiation', 'Payment Done'] } });
-    const siteVisits = await Lead.countDocuments({ status: 'Site Visited' });
+    let query = {};
+    if (req.query.days) {
+      const d = new Date(); d.setDate(d.getDate() - parseInt(req.query.days));
+      query.createdAt = { $gte: d };
+    }
+    
+    const totalLeads = await Lead.countDocuments(query);
+    const converted = await Lead.countDocuments({ ...query, status: 'Closed / Converted' });
+    const standardPending = await Lead.countDocuments({ ...query, status: { $in: ['New', 'Contacted', 'Negotiation', 'Payment Done'] } });
+    const siteVisits = await Lead.countDocuments({ ...query, status: 'Site Visited' });
     
     res.json({ totalLeads, converted, pending: standardPending, siteVisits });
   } catch (error) {
@@ -242,5 +252,35 @@ exports.getTeamStats = async (req, res) => {
     res.json(stats);
   } catch(error) {
      res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getAdvancedAnalytics = async (req, res) => {
+  try {
+    if (req.user.role !== 'Admin') return res.status(403).json({ message: 'Not authorized' });
+    
+    let days = parseInt(req.query.days) || 30;
+    const dateLimit = new Date();
+    dateLimit.setDate(dateLimit.getDate() - days);
+
+    const sourceDistribution = await Lead.aggregate([
+      { $match: { createdAt: { $gte: dateLimit } } },
+      { $group: { _id: { $ifNull: ['$source', 'Unknown'] }, count: { $sum: 1 } } }
+    ]);
+
+    const trendData = await Lead.aggregate([
+      { $match: { createdAt: { $gte: dateLimit } } },
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+          count: { $sum: 1 }
+        }
+      },
+      { $sort: { _id: 1 } }
+    ]);
+
+    res.json({ sourceDistribution, trendData });
+  } catch(error) {
+    res.status(500).json({ message: error.message });
   }
 };
