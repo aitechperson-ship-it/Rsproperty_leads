@@ -27,9 +27,13 @@ const Topnav = () => {
         </button>
         
         <div className="profile-widget">
-          <div className="profile-avatar">
-            {user?.name?.charAt(0).toUpperCase()}
-          </div>
+          {user?.profile_picture ? (
+            <img src={user.profile_picture} alt="Profile" className="profile-avatar" style={{ objectFit: 'cover' }} />
+          ) : (
+            <div className="profile-avatar">
+              {user?.name?.charAt(0).toUpperCase()}
+            </div>
+          )}
           <div style={{ display: 'flex', flexDirection: 'column', fontSize: '0.8rem' }}>
              {isEditingMode ? (
                 <div style={{ display: 'flex', gap: '5px' }}>

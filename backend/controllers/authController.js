@@ -23,7 +23,7 @@ exports.registerUser = async (req, res) => {
 
     const user = await User.create({ name, email, password_hash, role: assignedRole });
     if (user) {
-      res.status(201).json({ _id: user.id, name: user.name, email: user.email, role: user.role, token: generateToken(user.id) });
+      res.status(201).json({ _id: user.id, name: user.name, email: user.email, role: user.role, profile_picture: user.profile_picture, token: generateToken(user.id) });
     } else {
       res.status(400).json({ message: 'Invalid user data' });
     }
@@ -37,7 +37,7 @@ exports.loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (user && user.password_hash && (await bcrypt.compare(password, user.password_hash))) {
-      res.json({ _id: user.id, name: user.name, email: user.email, role: user.role, token: generateToken(user.id) });
+      res.json({ _id: user.id, name: user.name, email: user.email, role: user.role, profile_picture: user.profile_picture, token: generateToken(user.id) });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
     }
@@ -55,17 +55,20 @@ exports.googleLogin = async (req, res) => {
       audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
-    const { email, name } = payload;
+    const { email, name, picture } = payload;
     
     let user = await User.findOne({ email });
     if (!user) {
       const userCount = await User.countDocuments();
       const assignedRole = userCount === 0 ? 'Admin' : 'Team Member';
       // Create new user if not exists
-      user = await User.create({ name, email, auth_type: 'google', role: assignedRole });
+      user = await User.create({ name, email, auth_type: 'google', role: assignedRole, profile_picture: picture });
+    } else if (picture && user.profile_picture !== picture) {
+      user.profile_picture = picture;
+      await user.save();
     }
     
-    res.json({ _id: user.id, name: user.name, email: user.email, role: user.role, token: generateToken(user.id) });
+    res.json({ _id: user.id, name: user.name, email: user.email, role: user.role, profile_picture: user.profile_picture, token: generateToken(user.id) });
   } catch (error) {
     res.status(401).json({ message: 'Google authentication failed', error: error.message });
   }
