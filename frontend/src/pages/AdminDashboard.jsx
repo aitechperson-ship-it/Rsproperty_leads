@@ -243,29 +243,31 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', overflowX: 'auto', width: '100%' }}>
+              <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', width: '100%' }}>
                 <h3 style={{ marginBottom: '20px' }}>Team Member Performance</h3>
-                <table className="lead-table">
-                  <thead>
-                    <tr>
-                      <th>MEMBER</th>
-                      <th>ASSIGNED</th>
-                      <th>CLOSED</th>
-                      <th>REJECTED</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {teamStats.map(member => (
-                      <tr key={member._id}>
-                        <td style={{ fontWeight: 500 }}>{member.name}</td>
-                        <td>{member.totalAssigned}</td>
-                        <td style={{ color: '#16a34a' }}>{member.closed}</td>
-                        <td style={{ color: '#dc2626' }}>{member.rejected}</td>
+                <div className="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>MEMBER</th>
+                        <th className="mobile-hide-col">ASSIGNED</th>
+                        <th>CLOSED</th>
+                        <th>REJECTED</th>
                       </tr>
-                    ))}
-                    {teamStats.length === 0 && <tr><td colSpan="4" style={{ textAlign: 'center', padding: '20px' }}>No team performance data yet.</td></tr>}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {teamStats.map(member => (
+                        <tr key={member._id}>
+                          <td style={{ fontWeight: 500 }}>{member.name}</td>
+                          <td className="mobile-hide-col">{member.totalAssigned}</td>
+                          <td style={{ color: '#16a34a' }}>{member.closed}</td>
+                          <td style={{ color: '#dc2626' }}>{member.rejected}</td>
+                        </tr>
+                      ))}
+                      {teamStats.length === 0 && <tr><td colSpan="4" style={{ textAlign: 'center', padding: '20px' }}>No team performance data yet.</td></tr>}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           ) : (
