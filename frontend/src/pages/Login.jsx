@@ -32,7 +32,9 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-box">
-        <div className="login-logo">RS Property</div>
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+           <img src="/logo.png" alt="RS Properties" style={{ maxHeight: '80px', width: 'auto' }} />
+        </div>
         <form onSubmit={handleLogin}>
           <div className="form-group" style={{ position: 'relative' }}>
              <FiMail style={{ position: 'absolute', top: '15px', left: '15px', color: 'var(--text-muted)' }} />

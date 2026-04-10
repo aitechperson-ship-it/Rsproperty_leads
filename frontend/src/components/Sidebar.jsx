@@ -8,9 +8,8 @@ const Sidebar = ({ role }) => {
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-header">
-        <div style={{ width: '30px', height: '30px', backgroundColor: 'var(--primary-color)', borderRadius: '8px' }}></div>
-        RS Property
+      <div className="sidebar-header" style={{ display: 'flex', justifyContent: 'center', padding: '10px 0' }}>
+        <img src="/logo.png" alt="RS Properties" style={{ maxHeight: '50px', width: 'auto' }} />
       </div>
 
       <div className="nav-links">
