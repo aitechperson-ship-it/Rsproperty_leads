@@ -67,10 +67,10 @@ const LeadTable = ({ leads, role, onLeadUpdated }) => {
           <tr>
             <th>Customer</th>
             <th>Contact</th>
-            <th>Property Interest</th>
+            <th className="mobile-hide-col">Property Interest</th>
             <th>Status</th>
-            {role === 'Admin' && <th>Assigned To</th>}
-            <th>Last Updated</th>
+            {role === 'Admin' && <th className="mobile-hide-col">Assigned To</th>}
+            <th className="mobile-hide-col">Last Updated</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -82,7 +82,7 @@ const LeadTable = ({ leads, role, onLeadUpdated }) => {
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Source: {lead.source}</div>
               </td>
               <td>{lead.contact_info}</td>
-              <td>{lead.property_interest || 'N/A'}</td>
+              <td className="mobile-hide-col">{lead.property_interest || 'N/A'}</td>
               <td>
                 {editingId === lead._id ? (
                   <div style={{ display: 'flex', gap: '5px' }}>
@@ -100,8 +100,8 @@ const LeadTable = ({ leads, role, onLeadUpdated }) => {
                   <span className={`badge ${getStatusClass(lead.status)}`}>{lead.status}</span>
                 )}
               </td>
-              {role === 'Admin' && <td>{lead.assigned_to ? lead.assigned_to.name : 'Unassigned'}</td>}
-              <td>
+              {role === 'Admin' && <td className="mobile-hide-col">{lead.assigned_to ? lead.assigned_to.name : 'Unassigned'}</td>}
+              <td className="mobile-hide-col">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.85rem' }}>
                    <FiClock color="var(--text-muted)" />
                    {new Date(lead.updatedAt).toLocaleDateString()}
