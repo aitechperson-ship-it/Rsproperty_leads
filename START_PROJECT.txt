@@ -1,0 +1,31 @@
+How to Start the Project
+
+This project consists of two parts: a backend (Node.js/Express) and a frontend (React/Vite). You will need two separate terminal windows to run both simultaneously.
+
+---
+
+### 1. Starting the Backend
+
+1. Open your terminal or command prompt.
+2. Navigate to the backend directory:
+   cd "d:\Leads page\backend"
+3. Install dependencies (if you haven't already):
+   npm install
+4. Start the backend development server:
+   npm run dev
+
+Note: This will run 'nodemon server.js' and the backend will restart automatically when you make changes.
+
+---
+
+### 2. Starting the Frontend
+
+1. Open a new, separate terminal window.
+2. Navigate to the frontend directory:
+   cd "d:\Leads page\frontend"
+3. Install dependencies (if you haven't already):
+   npm install
+4. Start the frontend development server:
+   npm run dev
+
+Note: This will start the Vite development server. It will usually output a local URL (e.g., http://localhost:5173/) that you can open in your browser to view the application.
