@@ -228,42 +228,44 @@ const AdminDashboard = () => {
                      <Doughnut data={doughnutData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }} />
                   </div>
                 </div>
-                <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', overflowX: 'auto' }}>
+                <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)' }}>
                   <h3 style={{ marginBottom: '20px' }}>Lead Generation Growth Trend</h3>
                   <div style={{ height: '300px' }}>
                      <Line data={lineData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }} />
                   </div>
                 </div>
               </div>
-              <div className="responsive-grid-sidebar">
-                <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', width: '100%' }}>
-                  <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Status Distribution</h3>
-                  <Bar data={chartData} options={{ responsive: true, plugins: { legend: { position: 'bottom' } } }} />
+              
+              <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', width: '100%' }}>
+                <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Status Distribution</h3>
+                <div style={{ height: '300px', display: 'flex', justifyContent: 'center' }}>
+                   <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }} />
                 </div>
-                <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', overflowX: 'auto' }}>
-                  <h3 style={{ marginBottom: '20px' }}>Team Member Performance</h3>
-                  <table className="lead-table">
-                    <thead>
-                      <tr>
-                        <th>MEMBER</th>
-                        <th>ASSIGNED</th>
-                        <th>CLOSED</th>
-                        <th>REJECTED</th>
+              </div>
+
+              <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)', overflowX: 'auto', width: '100%' }}>
+                <h3 style={{ marginBottom: '20px' }}>Team Member Performance</h3>
+                <table className="lead-table">
+                  <thead>
+                    <tr>
+                      <th>MEMBER</th>
+                      <th>ASSIGNED</th>
+                      <th>CLOSED</th>
+                      <th>REJECTED</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {teamStats.map(member => (
+                      <tr key={member._id}>
+                        <td style={{ fontWeight: 500 }}>{member.name}</td>
+                        <td>{member.totalAssigned}</td>
+                        <td style={{ color: '#16a34a' }}>{member.closed}</td>
+                        <td style={{ color: '#dc2626' }}>{member.rejected}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {teamStats.map(member => (
-                        <tr key={member._id}>
-                          <td style={{ fontWeight: 500 }}>{member.name}</td>
-                          <td>{member.totalAssigned}</td>
-                          <td style={{ color: '#16a34a' }}>{member.closed}</td>
-                          <td style={{ color: '#dc2626' }}>{member.rejected}</td>
-                        </tr>
-                      ))}
-                      {teamStats.length === 0 && <tr><td colSpan="4" style={{ textAlign: 'center', padding: '20px' }}>No team performance data yet.</td></tr>}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                    {teamStats.length === 0 && <tr><td colSpan="4" style={{ textAlign: 'center', padding: '20px' }}>No team performance data yet.</td></tr>}
+                  </tbody>
+                </table>
               </div>
             </div>
           ) : (
