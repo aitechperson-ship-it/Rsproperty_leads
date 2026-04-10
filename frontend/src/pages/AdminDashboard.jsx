@@ -151,7 +151,7 @@ const AdminDashboard = () => {
           <div className="dashboard-header-block">
             <div>
               <h1 style={{ marginBottom: '5px' }}>Admin Dashboard</h1>
-              <div style={{ display: 'flex', gap: '15px', alignItems: 'center', marginTop: '10px' }}>
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '10px', flexWrap: 'wrap' }}>
                 <select value={daysFilter} onChange={e => setDaysFilter(Number(e.target.value))} className="form-select" style={{ width: 'auto', padding: '6px 15px' }}>
                   <option value={7}>Last 7 Days</option>
                   <option value={30}>Last 30 Days</option>
@@ -170,7 +170,7 @@ const AdminDashboard = () => {
           {/* Dynamic Content Rendering based on path */}
           {location.pathname === '/admin/leads' ? (
             <div style={{ background: 'var(--surface-color)', padding: '20px', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '15px' }}>
                 <h3 style={{ margin: 0 }}>All Company Leads</h3>
                 <div style={{ display: 'flex' }}>
                    <button className={`btn ${viewMode === 'list' ? '' : 'btn-secondary'}`} onClick={() => setViewMode('list')} style={{ borderRadius: '8px 0 0 8px', width: '80px' }}>List</button>
