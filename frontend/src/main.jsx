@@ -9,7 +9,7 @@ import { SocketProvider } from './context/SocketContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="632425616882-jpoam8vpfi74c4l8abgl3i39oa8bt03i.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || "632425616882-jpoam8vpfi74c4l8abgl3i39oa8bt03i.apps.googleusercontent.com"}>
       <ThemeProvider>
         <AuthProvider>
           <SocketProvider>
