@@ -219,12 +219,15 @@ ul {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  white-space: nowrap;
 }
 
 th, td {
